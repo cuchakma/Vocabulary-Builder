@@ -41,5 +41,30 @@ if( !$connection ) {
             $status = 2;
         }
         header("Location:index.php?status={$status}");
+    } elseif( 'login' == $action ) {
+
+        $username = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+
+        if( $username && $password ) {
+            $query  = "SELECT id, password FROM users WHERE email = '{$username}' ";
+            $result = mysqli_query($connection, $query);
+            $data   = mysqli_fetch_assoc($result);
+
+            if( count($data) == 0 ) {
+                $status = 5;
+            }
+
+            elseif( password_verify( $password, $data['password'] )) {
+               header("Location:words.php");
+               die();
+            } 
+            elseif( !( count($data) == 0 ) && !password_verify( $password, $data['password'])) {
+                $status = 4;
+            }
+        } else {
+            $status = 2;
+        }
+        header("Location:index.php?status={$status}");
     }
 }

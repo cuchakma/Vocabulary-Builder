@@ -44,7 +44,7 @@
                         </p>
 
                         <input class="button-primary" type="submit" value="Submit">
-                        <input type="hidden" name="action" id="action" value="register">
+                        <input type="hidden" name="action" id="action" value="login">
                     </fieldset>
                 </form>
             </div>
@@ -53,4 +53,6 @@
     </div>
 </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="assets/js/script.js"></script>
 </html>
