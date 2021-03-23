@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * session variable used for login
+ */
+session_start();
+
+/**
  * including the constants to be used for mysql connection
  */
 include_once 'config.php';
@@ -47,10 +52,10 @@ if( !$connection ) {
         $password = $_POST['password'] ?? '';
 
         if( $username && $password ) {
-            $query  = "SELECT id, password FROM users WHERE email = '{$username}' ";
-            $result = mysqli_query($connection, $query);
-            $data   = mysqli_fetch_assoc($result);
-
+            $query          = "SELECT id, password FROM users WHERE email = '{$username}' ";
+            $result         = mysqli_query($connection, $query);
+            $data           = mysqli_fetch_assoc($result);
+            $_SESSION['id'] = $data['id'];
             if( count($data) == 0 ) {
                 $status = 5;
             }

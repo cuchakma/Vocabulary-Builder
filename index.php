@@ -1,5 +1,16 @@
 <?php
-    include_once 'functions.php';
+/**
+ * session variable used for login
+ */
+session_start();
+$user_id = $_SESSION['id'] ?? 0;
+
+if( $user_id ) {
+    header("Location:words.php");
+    die();
+}
+
+include_once 'functions.php';
 ?>
 
 <!DOCTYPE html>
