@@ -15,7 +15,7 @@ $action = $_POST['action'] ?? '';
  * making a connection with mysql
  */
 $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-
+mysqli_set_charset($connection, "utf-8");
 /**
  * if connection is established else not established
  */
@@ -46,6 +46,7 @@ if( !$connection ) {
             $status = 2;
         }
         header("Location:index.php?status={$status}");
+        
     } elseif( 'login' == $action ) {
 
         $username = $_POST['email'] ?? '';
@@ -71,5 +72,15 @@ if( !$connection ) {
             $status = 2;
         }
         header("Location:index.php?status={$status}");
+
+    } elseif( 'addword' == $action ) {
+        $word    = $_REQUEST['word'] ?? '';
+        $meaning = $_REQUEST['meaning']?? '';
+        $user_id = $_SESSION['id'] ?? 0;
+        if( $word && $meaning && $user_id ) {
+            $query = "INSERT into words(user_id, word, meaning) VALUES ('{$user_id}','{$word}','{$meaning}')"; //query to insert word and meaning
+            mysqli_query($connection, $query); // connection with database and pushing the query using the mysql connection
+        }
+        header("Location:words.php");
     }
 }
