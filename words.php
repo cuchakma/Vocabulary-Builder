@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'functions.php';
 $user_id = $_SESSION['id'] ?? 0;
 if( !$user_id ) {
     header("Location:index.php");
@@ -14,8 +15,7 @@ if( !$user_id ) {
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
     <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
     <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -60,7 +60,7 @@ if( !$user_id ) {
         </div>
         <hr>
 
-        <table class="words" >
+        <table class="words helement" >
             <thead>
             <tr>
                 <th width="20%">Word</th>
@@ -68,7 +68,19 @@ if( !$user_id ) {
             </tr>
             </thead>
             <tbody>
-		
+                <?php
+                    $words = getWords($user_id);
+                    if( count($words) > 0 ) {
+                        for( $i = 0; $i < count($words); $i++ ) {
+                            ?>
+                                <tr>
+                                    <td> <?php echo $words[$i]['word']; ?> </td>
+                                    <td> <?php echo $words[$i]['meaning']; ?> </td>
+                                </tr>
+                            <?php
+                        }
+                    }
+                ?>
             </tbody>
         </table>
     </div>
