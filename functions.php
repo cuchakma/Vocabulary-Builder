@@ -6,6 +6,8 @@ $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
 mysqli_set_charset($connection, "utf-8");
 
+$chars = ['All Words', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
 /**
  * if connection is established else not established
  */
@@ -30,7 +32,7 @@ if( !$connection ) {
 
     function getWords($user_id) {
        global $connection;
-       $query  = "Select * FROM words where user_id ='{$user_id}'";
+       $query  = "Select * FROM words where user_id ='{$user_id}' ORDER BY word";
        $result = mysqli_query($connection, $query);
        $data   = [];
        while( $_data = mysqli_fetch_assoc($result) ){

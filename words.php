@@ -38,13 +38,13 @@ if( !$user_id ) {
             <div class="column column-50">
                 <div class="alphabets">
                     <select id="alphabets">
-                        <option value="all">All Words</option>
-                        <option value="A">A#</option>
-                        <option value="B">B#</option>
-                        <option value="C">C#</option>
-                        <option value="D">D#</option>
-                        <option value="N">N#</option>
-                        <option value="M">M#</option>
+                        <?php
+                            foreach( $chars as $value ) {
+                             ?>
+                                <option value = <?php echo strtolower($value); ?> > <?php echo $value ?> </option> 
+                             <?php
+                            }
+                        ?>
                     </select>
 
                 </div>
@@ -60,10 +60,10 @@ if( !$user_id ) {
         </div>
         <hr>
 
-        <table class="words helement" >
+        <table class="words helement">
             <thead>
             <tr>
-                <th width="20%">Word</th>
+                <th width="20%">Words</th>
                 <th>Definition</th>
             </tr>
             </thead>
