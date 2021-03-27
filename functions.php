@@ -30,9 +30,14 @@ if( !$connection ) {
         return $errors[$statusCode];
     }
 
-    function getWords($user_id) {
+    function getWords($user_id, $search = null) {
        global $connection;
-       $query  = "Select * FROM words where user_id ='{$user_id}' ORDER BY word";
+       if( $search ) {
+            $query  = "Select * FROM words where user_id ='{$user_id}'AND word LIKE '{$search}%' ORDER BY word";
+       } else {
+            $query  = "Select * FROM words where user_id ='{$user_id}' ORDER BY word";
+       }
+      
        $result = mysqli_query($connection, $query);
        $data   = [];
        while( $_data = mysqli_fetch_assoc($result) ){

@@ -53,7 +53,7 @@ if( !$user_id ) {
             <div class="column column-50">
                 <form action="" method="POST">
                     <button class="float-right" name="submit" value="submit">Search</button>
-                    <input type="text" name="search" class="float-right" style="width: 50%; margin-right:20px;" placeholder="Search">
+                    <input type="text" name="search" value="<?php echo $_POST['search']; ?>" class="float-right" style="width: 50%; margin-right:20px;" placeholder="Search">
                 </form>
             </div>
             </div>
@@ -69,7 +69,13 @@ if( !$user_id ) {
             </thead>
             <tbody>
                 <?php
-                    $words = getWords($user_id);
+                    if( isset( $_POST['submit'] ) ) {
+                        $search_Text = $_POST['search'];
+                        $words = getWords($user_id, $search_Text);
+                    } else {
+                        $words = getWords($user_id, $search_Text);
+                    }
+                    
                     if( count($words) > 0 ) {
                         for( $i = 0; $i < count($words); $i++ ) {
                             ?>
